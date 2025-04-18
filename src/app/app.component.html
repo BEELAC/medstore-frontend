@@ -1,0 +1,5 @@
+<app-navbar (loginClick)="openLogin()"></app-navbar>
+
+<app-login-modal *ngIf="showLogin" (close)="closeLogin()"> </app-login-modal>
+
+<router-outlet></router-outlet>
