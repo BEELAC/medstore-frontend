@@ -6,14 +6,31 @@
       <a class="nav-link" routerLink="/">Home</a>
     </li>
     <li class="nav-item">
+      <a class="nav-link" routerLink="/products">Shop</a>
+    </li>
+    <li class="nav-item">
       <a class="nav-link" routerLink="/cart">Cart</a>
     </li>
-    <li class="nav-item">
-      <a class="nav-link" routerLink="/orders">Orders</a>
+
+    <!-- Admin-only -->
+    <li class="nav-item" *ngIf="userState.isAdmin()">
+      <a class="nav-link text-danger fw-bold" routerLink="/admin/products">
+        Admin Panel
+      </a>
     </li>
-    <li class="nav-item">
+
+    <!-- Login/Logout -->
+    <li class="nav-item" *ngIf="!userState.isLoggedIn()">
       <button class="btn btn-outline-primary ms-2" (click)="triggerLogin()">
         Login
+      </button>
+    </li>
+    <li class="nav-item" *ngIf="userState.isLoggedIn()">
+      <button
+        class="btn btn-outline-secondary ms-2"
+        (click)="userState.logout()"
+      >
+        Logout
       </button>
     </li>
   </ul>

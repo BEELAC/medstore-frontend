@@ -1,6 +1,7 @@
 import { Component, EventEmitter, Output } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterLink } from '@angular/router';
+import { UserStateService } from '../../../core/user-state.service';
 
 @Component({
   selector: 'app-navbar',
@@ -11,6 +12,8 @@ import { RouterLink } from '@angular/router';
 })
 export class NavbarComponent {
   @Output() loginClick = new EventEmitter<void>();
+
+  constructor(public userState: UserStateService) {}
 
   triggerLogin() {
     this.loginClick.emit();

@@ -1,1 +1,95 @@
-<p>admin works!</p>
+<div class="container mt-4">
+  <h2>Add New Product</h2>
+
+  <form
+    [formGroup]="productForm"
+    (ngSubmit)="addProduct()"
+    class="row g-3 mb-4"
+  >
+    <div class="col-md-4">
+      <input
+        class="form-control"
+        formControlName="name"
+        placeholder="Product Name"
+      />
+    </div>
+    <div class="col-md-4">
+      <input
+        class="form-control"
+        formControlName="price"
+        type="number"
+        placeholder="Price"
+      />
+    </div>
+    <div class="col-md-4">
+      <input
+        class="form-control"
+        formControlName="quantity"
+        type="number"
+        placeholder="Quantity"
+      />
+    </div>
+    <div class="col-md-6">
+      <input
+        class="form-control"
+        formControlName="imageUrl"
+        placeholder="Image URL"
+      />
+    </div>
+    <div class="col-md-6">
+      <input
+        class="form-control"
+        formControlName="categoryId"
+        type="number"
+        placeholder="Category ID"
+      />
+    </div>
+    <div class="col-md-12">
+      <input
+        class="form-control"
+        formControlName="description"
+        placeholder="Description"
+      />
+    </div>
+    <div class="col-md-12 d-grid">
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="productForm.invalid"
+      >
+        Add Product
+      </button>
+    </div>
+  </form>
+
+  <hr />
+
+  <h3>Current Products</h3>
+  <table class="table table-bordered">
+    <thead class="table-light">
+      <tr>
+        <th>Name</th>
+        <th>Price</th>
+        <th>Qty</th>
+        <th>Category ID</th>
+        <th>Actions</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let product of products">
+        <td>{{ product.name }}</td>
+        <td>${{ product.price }}</td>
+        <td>{{ product.quantity }}</td>
+        <td>{{ product.categoryId }}</td>
+        <td>
+          <button
+            class="btn btn-sm btn-danger"
+            (click)="deleteProduct(product.id)"
+          >
+            Delete
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
