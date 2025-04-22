@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { HttpClient } from '@angular/common/http';
 import { CartService } from '../../core/cart.service';
 import { UserStateService } from '../../core/user-state.service';
+import { Product }
 
 @Component({
   selector: 'app-product-list',
@@ -21,7 +22,7 @@ export class ProductListComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.http.get<any[]>('http://localhost:8081/products')
+    this.http.get<Product[]>('http://localhost:8081/products')
     .subscribe({
       next: (data) => this.products = data,
       error: (err) => console.error('Failed to load products', err)

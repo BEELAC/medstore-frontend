@@ -18,4 +18,8 @@ export class NavbarComponent {
   triggerLogin() {
     this.loginClick.emit();
   }
+
+  logout() {
+    this.userState.logout();
+  }
 }

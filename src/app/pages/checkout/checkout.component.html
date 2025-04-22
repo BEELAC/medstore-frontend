@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <h2>Checkout</h2>
+
+  <!-- cart summary -->
+  <div *ngIf="cartItems.length > 0; else emptyCart">
+    <table class="table table-bordered table-striped mt-3">
+      <thead>
+        <tr>
+          <th>Product</th>
+          <th class="text-end">Price</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of cartItems">
+          <td>{{ item.name }}</td>
+          <td class="text-end">${{ item.price.toFixed(2) }}</td>
+        </tr>
+        <tr class="fw-bold">
+          <td>Total</td>
+          <td class="text-end">${{ getTotal().toFixed(2) }}</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <!-- payment form -->
+    <form [formGroup]="checkoutForm" (ngSubmit)="submitOrder()">
+      <div class="mb-3">
+        <label for="paymentMethod" class="form-label">Payment Method</label>
+        <select
+          class="form-select"
+          formControlName="paymentMethod"
+          id="paymentMethod"
+        >
+          <option value="card">Credit/Debit Card</option>
+          <option value="paypal">PayPal</option>
+          <option value="cash">Cash on Delivery</option>
+        </select>
+      </div>
+
+      <button
+        type="submit"
+        class="btn btn-success"
+        [disabled]="checkoutForm.invalid"
+      >
+        Submit Order
+      </button>
+    </form>
+  </div>
+
+  <!-- empty cart message -->
+  <ng-template #emptyCart>
+    <p>Your cart is empty. <a routerLink="/products">Shop now</a>.</p>
+  </ng-template>
+</div>

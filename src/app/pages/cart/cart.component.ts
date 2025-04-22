@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient } from '@angular/common/http';
+import { Router } from '@angular/router';
+
 import { CartService } from '../../core/cart.service';
 import { UserStateService } from '../../core/user-state.service';
-
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-}
+import { Product } from '../../core/models/product.model';
 
 @Component({
   selector: 'app-cart',
@@ -23,7 +20,8 @@ export class CartComponent implements OnInit {
   constructor(
     private cartService: CartService,
     private http: HttpClient,
-    private userState: UserStateService
+    private userState: UserStateService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -46,39 +44,11 @@ export class CartComponent implements OnInit {
 
   checkout(): void {
     const userId = this.userState.getUserId();
-    console.log( 'User ID at checkout:', userId);
     if (!userId) {
       alert('You must be logged in to check out.');
       return;
     }
 
-    const total = this.getTotal();
-    const orderPayload = {
-      userId: userId,
-      paymentMethod: 'card',
-      paymentStatus: 'confirmed',
-      amount: total,
-      orderStatus: 'successful',
-      // items: this.cartItems.map((item) => ({
-      //   productId: item.id,
-      //   quantity: 1,
-      //   price: item.price
-      // }))
-    };
-
-    console.log('Placing order with payload:', orderPayload);
-
-    this.http.post('http://localhost:8081/orders', orderPayload, {
-      withCredentials: true
-    }).subscribe({
-      next: () => {
-        alert('Order placed successfully!');
-        this.clearCart();
-      },
-      error: (err) => {
-        console.error('Failed to place order:', err);
-        alert('Failed to place order.');
-      }
-    });
+    this.router.navigate(['/checkout']);
   }
 }

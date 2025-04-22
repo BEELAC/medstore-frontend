@@ -16,6 +16,8 @@ export class UserStateService {
     this.email = user.email;
 
     localStorage.setItem('user', JSON.stringify(user));
+
+    console.log("User logged in:", user);
   }
 
   restoreFromStorage(): void {
@@ -34,6 +36,7 @@ export class UserStateService {
     this.admin = false;
     this.userId = 0;
     this.email = '';
+    localStorage.removeItem('user');
   }
 
   isLoggedIn(): boolean {
